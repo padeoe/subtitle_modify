@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 /**
- * Î´½â¾öÎÊÌâ£º
- * ÈçºÎÔÚÒÑÖªFileÍ¬Ä¿Â¼ÏÂ´´½¨ÎÄ¼þ
+ * Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£º
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖªFileÍ¬Ä¿Â¼ï¿½Â´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
  * @author Kangkang
  *
  */
@@ -26,14 +26,14 @@ public class Change_Start {
 		ClockTime3.delayTime(ClockTime4);
 		ClockTime3.printTime();
 		
-		//¿ªÊ¼ÐÞ¸ÄÎÄ¼þ
-		File subtitle=new File("C:/Users/Kangkang/Desktop/×ÖÄ» - ¸±±¾.srt");
+		//ï¿½ï¿½Ê¼ï¿½Þ¸ï¿½ï¿½Ä¼ï¿½
+		File subtitle=new File("/media/padeoe/å­¦ä¹ /OneDrive/Java2015/subtitle_time_modify/src/here.srt");
 		modifySubtitleFile(subtitle);
 		
 	}
 
 	public static void modifySubtitleFile(File file){
-		File newSubtitle=new File("C:/Users/Kangkang/Desktop/ÐÂ×ÖÄ».srt");
+		File newSubtitle=new File("/media/padeoe/å­¦ä¹ /OneDrive/Java2015/subtitle_time_modify/src/new.srt");
 		try {
 			newSubtitle.createNewFile();
 		} catch (IOException e1) {
@@ -75,7 +75,7 @@ public class Change_Start {
 		}
 	}
 	/**
-	 * ÔÚÐÐÀïÕÒµ½Ê±¼ä½øÐÐÐÞ¸Ä
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
 	 * @param line
 	 * @return
 	 */
@@ -85,7 +85,7 @@ public class Change_Start {
 /*		if(ss.length!=7){
 			
 		}*/
-	//	System.out.println("³¤¶È"+ss.length);
+	//	System.out.println("ï¿½ï¿½ï¿½ï¿½"+ss.length);
 		int t=0;
 /*		for(int i=0;i<ss.length&&t<6;i++){
 			if(ss[i].length()>=2){
@@ -96,7 +96,7 @@ public class Change_Start {
 		boolean firstSkip=true;
 		for(int i=0;i<ss.length&&t<6;i++){
 			if(ss[i].length()>=2){
-			//	System.out.println("Êý×ÖÊÇ"+ss[i]);
+			//	System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+ss[i]);
 				if(t==3){
 					if(firstSkip){
 						firstSkip=false;
@@ -114,11 +114,11 @@ public class Change_Start {
 			}
 		}
 		if(t<6){
-			System.out.println("Ã»ÓÐÕÒµ½Êý×Ö");
+			System.out.println("Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½");
 			return line;
 		}
 		else{
-			System.out.println("ÕÒµ½Êý×ÖÁË");
+			System.out.println("ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 			ClockTime clockTimeA = new ClockTime(Integer.valueOf(data[0]),
 					Integer.valueOf(data[1]),Double.valueOf(data[2]));
@@ -126,8 +126,8 @@ public class Change_Start {
 					Integer.valueOf(data[4]),Double.valueOf(data[5]));
 			
 			
-			//ÔÚÕâÀïÐÞ¸ÄÊ±¼ä!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡
-			//Êý×ÖÔ½Ð¡£¬×ÖÄ»³öÏÖµÄÔ½Ôç
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ê±ï¿½ï¿½!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½Ô½Ð¡ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Öµï¿½Ô½ï¿½ï¿½
 			ClockTime intervalTime=new ClockTime(0,0,5);
 			
 			clockTimeA.printTime();
@@ -178,16 +178,16 @@ class ClockTime{
 	}
 	public ClockTime delayTime(ClockTime intervalTime){
 		/**
-		 * ÊäÈë¼ìÑé
-		 * ÎªÁË¿¼ÂÇÐ§ÂÊ£¬ÔÝÊ±Ê¡ÂÔ
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * Îªï¿½Ë¿ï¿½ï¿½ï¿½Ð§ï¿½Ê£ï¿½ï¿½ï¿½Ê±Ê¡ï¿½ï¿½
 		 */
 /*		if(intervalTime.second>=60||intervalTime.minute>=60){
-			System.out.println("ÊäÈëµÄÊ±¼ä±íÊ¾²»ÕýÈ·£º"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
 		}*/
 		
 		
 		boolean c_second=false,c_minute=false;
-		//¼ÆËãÃë
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		double sum_second=this.second+intervalTime.second-60;
 		if(sum_second>0){
 			this.second=sum_second;
@@ -196,7 +196,7 @@ class ClockTime{
 		else{
 			this.second=this.second+intervalTime.second;
 		}
-		//¼ÆËã·Ö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(c_second){
 			int sum_minute=this.minute+intervalTime.minute+1-60;
 			if(sum_minute>0){
@@ -217,7 +217,7 @@ class ClockTime{
 				this.minute=this.minute+intervalTime.minute;
 			}
 		}
-		//¼ÆËãÐ¡Ê±
+		//ï¿½ï¿½ï¿½ï¿½Ð¡Ê±
 		if(c_minute){
 			this.hour=this.hour+intervalTime.hour+1;
 		}
@@ -232,16 +232,16 @@ class ClockTime{
 	}
 	public ClockTime advanceTime(ClockTime intervalTime){
 		/**
-		 * ÊäÈë¼ìÑé
-		 * ÎªÁË¿¼ÂÇÐ§ÂÊ£¬ÔÝÊ±Ê¡ÂÔ
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * Îªï¿½Ë¿ï¿½ï¿½ï¿½Ð§ï¿½Ê£ï¿½ï¿½ï¿½Ê±Ê¡ï¿½ï¿½
 		 */
 /*		if(intervalTime.second>=60||intervalTime.minute>=60){
-			System.out.println("ÊäÈëµÄÊ±¼ä±íÊ¾²»ÕýÈ·£º"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
 		}*/
 		
 		
 		boolean c_second=false,c_minute=false;
-		//¼ÆËãÃë
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		double sum_second=this.second-intervalTime.second+60;
 		if(sum_second<60){
 			this.second=sum_second;
@@ -250,7 +250,7 @@ class ClockTime{
 		else{
 			this.second=this.second-intervalTime.second;
 		}
-		//¼ÆËã·Ö
+		//ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(c_second){
 			int sum_minute=this.minute-intervalTime.minute-1+60;
 			if(sum_minute<60){
@@ -271,7 +271,7 @@ class ClockTime{
 				this.minute=this.minute-intervalTime.minute;
 			}
 		}
-		//¼ÆËãÐ¡Ê±
+		//ï¿½ï¿½ï¿½ï¿½Ð¡Ê±
 		if(c_minute){
 			this.hour=this.hour-intervalTime.hour-1;
 		}
