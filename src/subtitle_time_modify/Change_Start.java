@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * δ������⣺
  * �������֪FileͬĿ¼�´����ļ�
@@ -13,6 +15,8 @@ import java.util.Scanner;
  *
  */
 public class Change_Start {
+	
+	private static Pattern pattern = Pattern.compile("^(\\d\\d):(\\d\\d):(\\d\\d\\.\\d\\d\\d) --> (\\d\\d):(\\d\\d):(\\d\\d.\\d\\d\\d)");
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -26,14 +30,18 @@ public class Change_Start {
 		ClockTime3.delayTime(ClockTime4);
 		ClockTime3.printTime();
 		
-		//��ʼ�޸��ļ�
-		File subtitle=new File("/media/padeoe/学习/OneDrive/Java2015/subtitle_time_modify/src/here.srt");
+		ClockTime ClockTime5=new ClockTime(00,47,20.437 );
+		ClockTime ClockTime6=new ClockTime(0,0,-2.1);
+		ClockTime5.delayTime(ClockTime6);
+		ClockTime5.printTime();
+		
+		File subtitle=new File("C:\\Users\\padeoe\\Desktop\\subtitle.srt");
 		modifySubtitleFile(subtitle);
 		
 	}
 
 	public static void modifySubtitleFile(File file){
-		File newSubtitle=new File("/media/padeoe/学习/OneDrive/Java2015/subtitle_time_modify/src/new.srt");
+		File newSubtitle=new File("C:\\Users\\padeoe\\Desktop\\NewSubtitle.srt");
 		try {
 			newSubtitle.createNewFile();
 		} catch (IOException e1) {
@@ -41,15 +49,6 @@ public class Change_Start {
 			newSubtitle.delete();
 			e1.printStackTrace();
 		}
-/*		if(!newSubtitle.exists()){
-			try {
-				newSubtitle.createNewFile();
-				newSubtitle.delete();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/
 		StringBuilder stringBuilder = new StringBuilder();
 		try {
 			Scanner scanner = new Scanner(file);
@@ -61,7 +60,7 @@ public class Change_Start {
 			try {
 				fileWriter = new FileWriter(newSubtitle);
 				fileWriter.write(stringBuilder.toString());
-		//		System.out.println(stringBuilder.toString());
+				System.out.println(stringBuilder.toString());
 				fileWriter.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -74,26 +73,29 @@ public class Change_Start {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * �������ҵ�ʱ������޸�
-	 * @param line
-	 * @return
-	 */
+
+	
 	public static String processLine(String line){
+/*		Matcher matcher = pattern.matcher(line);
+		if (!matcher.matches()) {
+			return line;
+		}*/
+		
 		String ss[]=line.split("[^0-9\\.]");
 		String data[] = new String[6];
+
 /*		if(ss.length!=7){
 			
 		}*/
 	//	System.out.println("����"+ss.length);
-		int t=0;
-/*		for(int i=0;i<ss.length&&t<6;i++){
+		int n=0;
+		for(int i=0;i<ss.length&&n<6;i++){
 			if(ss[i].length()>=2){
-				data[t]=ss[i];
-				t++;
+				data[n]=ss[i];
+				n++;
 			}
-		}*/
-		boolean firstSkip=true;
+		}
+/*		boolean firstSkip=true;
 		for(int i=0;i<ss.length&&t<6;i++){
 			if(ss[i].length()>=2){
 			//	System.out.println("������"+ss[i]);
@@ -112,31 +114,22 @@ public class Change_Start {
 					t++;
 				}
 			}
-		}
-		if(t<6){
-			System.out.println("û���ҵ�����");
+		}*/
+		if(n<6){
 			return line;
 		}
 		else{
-			System.out.println("�ҵ�������");
-		
 			ClockTime clockTimeA = new ClockTime(Integer.valueOf(data[0]),
 					Integer.valueOf(data[1]),Double.valueOf(data[2]));
 			ClockTime clockTimeB = new ClockTime(Integer.valueOf(data[3]),
 					Integer.valueOf(data[4]),Double.valueOf(data[5]));
 			
 			
-			//�������޸�ʱ��!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!��������������������������������������������������������������
-			//����ԽС����Ļ���ֵ�Խ��
-			ClockTime intervalTime=new ClockTime(0,0,5);
+			ClockTime intervalTime=new ClockTime(0,0,-2.5);
 			
 			clockTimeA.printTime();
 			clockTimeB.printTime();
 			
-			boolean a=false;
-			if(clockTimeA.hour==00&&clockTimeA.minute==47&&clockTimeA.second==20.437){
-				a=true;
-			}
 			clockTimeA.delayTime(intervalTime);
 			clockTimeB.delayTime(intervalTime);
 /*			clockTimeA.delayTime(intervalTime);
@@ -148,23 +141,13 @@ public class Change_Start {
 			replaceFirst(data[4],String.valueOf(clockTimeB.minute)).
 			replaceFirst(data[5],String.valueOf(clockTimeB.second));*/
 			String result2=line.replaceFirst(data[0]+":"+data[1]+":"+data[2],
-					clockTimeA.hour+":"+clockTimeA.minute+":"+(int)clockTimeA.second)
+					clockTimeA.hour+":"+clockTimeA.minute+":"+clockTimeA.second)
 					.replaceFirst(data[3]+":"+data[4]+":"+data[5],
-					clockTimeB.hour+":"+clockTimeB.minute+":"+(int)clockTimeB.second);
-			
-			if(a){
-				
-		//		System.out.println(line);
+					clockTimeB.hour+":"+clockTimeB.minute+":"+clockTimeB.second);
 				for(int i=0;i<6;i++)
 					System.out.println(data[i]);
-		//		System.out.println(result2);
-			}
 			return result2;
 		}
-/*		ClockTime clockTimeA = new ClockTime();
-		ClockTime clockTimeB = new ClockTime();*/
-
-		
 	}
 }
 class ClockTime{
@@ -176,18 +159,8 @@ class ClockTime{
 		this.minute=minute;
 		this.second=second;
 	}
-	public ClockTime delayTime(ClockTime intervalTime){
-		/**
-		 * �������
-		 * Ϊ�˿���Ч�ʣ���ʱʡ��
-		 */
-/*		if(intervalTime.second>=60||intervalTime.minute>=60){
-			System.out.println("�����ʱ���ʾ����ȷ��"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
-		}*/
-		
-		
+	public ClockTime delayTime(ClockTime intervalTime){		
 		boolean c_second=false,c_minute=false;
-		//������
 		double sum_second=this.second+intervalTime.second-60;
 		if(sum_second>0){
 			this.second=sum_second;
@@ -196,7 +169,6 @@ class ClockTime{
 		else{
 			this.second=this.second+intervalTime.second;
 		}
-		//�����
 		if(c_second){
 			int sum_minute=this.minute+intervalTime.minute+1-60;
 			if(sum_minute>0){
@@ -217,7 +189,6 @@ class ClockTime{
 				this.minute=this.minute+intervalTime.minute;
 			}
 		}
-		//����Сʱ
 		if(c_minute){
 			this.hour=this.hour+intervalTime.hour+1;
 		}
@@ -231,17 +202,10 @@ class ClockTime{
 		
 	}
 	public ClockTime advanceTime(ClockTime intervalTime){
-		/**
-		 * �������
-		 * Ϊ�˿���Ч�ʣ���ʱʡ��
-		 */
-/*		if(intervalTime.second>=60||intervalTime.minute>=60){
-			System.out.println("�����ʱ���ʾ����ȷ��"+intervalTime.hour+":"+intervalTime.minute+":"+intervalTime.second);
-		}*/
 		
 		
 		boolean c_second=false,c_minute=false;
-		//������
+	
 		double sum_second=this.second-intervalTime.second+60;
 		if(sum_second<60){
 			this.second=sum_second;
@@ -250,7 +214,7 @@ class ClockTime{
 		else{
 			this.second=this.second-intervalTime.second;
 		}
-		//�����
+		
 		if(c_second){
 			int sum_minute=this.minute-intervalTime.minute-1+60;
 			if(sum_minute<60){
@@ -271,20 +235,20 @@ class ClockTime{
 				this.minute=this.minute-intervalTime.minute;
 			}
 		}
-		//����Сʱ
+		
 		if(c_minute){
 			this.hour=this.hour-intervalTime.hour-1;
 		}
 		else{
 			this.hour=this.hour-intervalTime.hour;
 		}
-//		DecimalFormat df= new DecimalFormat("#0.000");
-//		this.second=Double.valueOf(df.format(this.second));
+		DecimalFormat df= new DecimalFormat("#0.000");
+		this.second=Double.valueOf(df.format(this.second));
 		return this;
 		
 	}
 	public void printTime(){
-		System.out.println(this.hour+":"+this.minute+":"+(int)this.second);
+		System.out.println(this.hour+":"+this.minute+":"+this.second);
 	}
 	
 }
