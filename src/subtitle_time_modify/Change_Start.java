@@ -9,12 +9,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
- * δ������⣺
- * �������֪FileͬĿ¼�´����ļ�
+ * 修改字幕文件的时间轴。
+ * 适用于将apple发布会的WebVTT格式转换成标准srt格式并且同步时间轴
  * @author Kangkang
  *
  */
 public class Change_Start {
+	static int lineNumber=1;
 	
 	private static Pattern pattern = Pattern.compile("^(\\d\\d):(\\d\\d):(\\d\\d\\.\\d\\d\\d) --> (\\d\\d):(\\d\\d):(\\d\\d.\\d\\d\\d)");
 
@@ -31,7 +32,7 @@ public class Change_Start {
 		ClockTime3.printTime();
 		
 		ClockTime ClockTime5=new ClockTime(00,47,20.437 );
-		ClockTime ClockTime6=new ClockTime(0,0,-2.1);
+		ClockTime ClockTime6=new ClockTime(0,0,-0.25);
 		ClockTime5.delayTime(ClockTime6);
 		ClockTime5.printTime();
 		
@@ -54,7 +55,7 @@ public class Change_Start {
 			Scanner scanner = new Scanner(file);
 			while(scanner.hasNextLine()){
 				String line=scanner.nextLine();
-				stringBuilder.append(processLine(line)+'\n');
+				stringBuilder.append(processLine(line)+"\r\n");
 			}
 			FileWriter fileWriter;
 			try {
@@ -76,6 +77,7 @@ public class Change_Start {
 
 	
 	public static String processLine(String line){
+		line=line.replaceAll("\\&amp;gt;\\&amp;gt;","");
 /*		Matcher matcher = pattern.matcher(line);
 		if (!matcher.matches()) {
 			return line;
@@ -125,27 +127,20 @@ public class Change_Start {
 					Integer.valueOf(data[4]),Double.valueOf(data[5]));
 			
 			
-			ClockTime intervalTime=new ClockTime(0,0,-2.5);
+			ClockTime intervalTime=new ClockTime(0,0,-0.0);
 			
 			clockTimeA.printTime();
 			clockTimeB.printTime();
 			
 			clockTimeA.delayTime(intervalTime);
 			clockTimeB.delayTime(intervalTime);
-/*			clockTimeA.delayTime(intervalTime);
-			clockTimeB.delayTime(intervalTime);*/
-/*			String result2=line.replaceFirst(data[0],String.valueOf(clockTimeA.hour))
-			.replaceFirst(data[1],String.valueOf(clockTimeA.minute));
-			String result=result2.replaceFirst(data[2],String.valueOf(clockTimeA.second)).
-			replaceFirst(data[3],String.valueOf(clockTimeB.hour)).
-			replaceFirst(data[4],String.valueOf(clockTimeB.minute)).
-			replaceFirst(data[5],String.valueOf(clockTimeB.second));*/
-			String result2=line.replaceFirst(data[0]+":"+data[1]+":"+data[2],
-					clockTimeA.hour+":"+clockTimeA.minute+":"+clockTimeA.second)
-					.replaceFirst(data[3]+":"+data[4]+":"+data[5],
-					clockTimeB.hour+":"+clockTimeB.minute+":"+clockTimeB.second);
+
+			String result2= lineNumber+"\r\n"+String.format("%02d", clockTimeA.hour)+":"+String.format("%02d", clockTimeA.minute)
+					+":"+new DecimalFormat("00.000").format(clockTimeA.second).replaceAll("\\.",",")+" --> "
+					+ String.format("%02d",clockTimeB.hour)+":"+String.format("%02d",clockTimeB.minute)+":"+new DecimalFormat("00.000").format(clockTimeB.second).replaceAll("\\.",",");
 				for(int i=0;i<6;i++)
 					System.out.println(data[i]);
+			lineNumber++;
 			return result2;
 		}
 	}
